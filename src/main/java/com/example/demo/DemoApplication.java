@@ -9,7 +9,10 @@ import java.util.Collections;
 public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication app = new SpringApplication(DemoApplication.class);
+        // デフォルトのプロファイルを dev に設定する。
+        app.setDefaultProperties(Collections.singletonMap("spring.profiles.active", "dev"));
+        app.run(args);
     }
 
 }

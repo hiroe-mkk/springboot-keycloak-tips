@@ -8,6 +8,8 @@
     <title>Home</title>
   </head>
   <body>
+    <div>(Active Profile: <span th:text="${activeProfile}"></span>)</div>
+
     <div sec:authorize="!isAuthenticated()">
       <h1>Login</h1>
       With Yahoo! JAPAN: <a href="/oauth2/authorization/yahoo">click here</a>

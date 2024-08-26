@@ -1,3 +1,6 @@
+# 開発環境向け設定ファイル (dev プロファイル)
+# デフォルトで有効になっています (spring.profiles.active=dev)。
+
 spring:
   security:
     oauth2:

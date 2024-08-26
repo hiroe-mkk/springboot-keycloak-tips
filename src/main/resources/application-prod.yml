@@ -1,0 +1,24 @@
+# 本番環境向け設定ファイル (prod プロファイル)
+# prod プロファイル有効化方法
+# 1. コマンドラインで "-Dspring.profiles.active=prod" を使用 (例: ./gradlew bootRun -Dspring.profiles.active=dev)
+# 2. 環境変数「SPRING_PROFILES_ACTIVE=prod」を設定
+# Yahoo! JAPAN のクライアント ID とシークレットは、環境変数 YAHOO_CLIENT_ID, YAHOO_CLIENT_SECRET に指定してください。
+
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          yahoo: # Yahoo! JAPAN で userInfo を取得するには審査が必要です。審査を通していない場合は issuer-uri を利用できません。
+            authorization-uri: https://auth.login.yahoo.co.jp/yconnect/v2/authorization
+            token-uri: https://auth.login.yahoo.co.jp/yconnect/v2/token
+            jwk-set-uri: https://auth.login.yahoo.co.jp/yconnect/v2/jwks
+
+        registration:
+          yahoo:
+            client-id: ${YAHOO_CLIENT_ID}
+            client-secret: ${YAHOO_CLIENT_SECRET}
+            provider: yahoo
+            scope: openid, profile
+            authorization-grant-type: authorization_code
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
