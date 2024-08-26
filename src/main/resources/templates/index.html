@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-secuirty"
+>
+  <head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+  </head>
+  <body>
+    <div sec:authorize="!isAuthenticated()">
+      <h1>Login</h1>
+      With Yahoo! JAPAN: <a href="/oauth2/authorization/yahoo">click here</a>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+      Logged in as:
+      <span th:text="${name} ?: '情報が取得できません。'"></span>
+      <div>
+        <form th:action="@{/logout}" method="post">
+          <button type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

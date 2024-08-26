@@ -1,0 +1,23 @@
+spring:
+  security:
+    oauth2:
+      client: # Yahoo の代替として Keycloak を使用
+        provider:
+          yahoo:
+            # ユーザーがブラウザからのリダイレクトでアクセスする URI
+            authorization-uri: http://localhost:18080/realms/mykeycloak/protocol/openid-connect/auth
+            # アプリケーションがバックエンドでアクセスする URI
+            token-uri: http://keycloak:8080/realms/mykeycloak/protocol/openid-connect/token
+            jwk-set-uri: http://keycloak:8080/realms/mykeycloak/protocol/openid-connect/certs
+
+            # コンテナ内でアプリケーションを実行する場合、すべてのURLを localhost:18080 で統一できないため、issuer-uriは使えません。
+            # issuer-uri: http://localhost:18080/realms/mykeycloak
+
+        registration:
+          yahoo:
+            client-id: myclient
+            client-secret: 4zORMlcWQ3xMLI1cvEiV9c8rWXHUsvkt
+            provider: yahoo
+            scope: openid
+            authorization-grant-type: authorization_code
+            redirect-uri: 'http://localhost:8080/login/oauth2/code/{registrationId}'

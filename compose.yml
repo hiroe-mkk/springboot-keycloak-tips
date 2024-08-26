@@ -1,0 +1,20 @@
+services:
+  app:
+    image: openjdk:17-jdk-slim-bullseye
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: ./gradlew bootrun
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.1
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - 18080:8080
+    volumes:
+      - ./docker/keycloak/data/import:/opt/keycloak/data/import
+    command: start-dev --import-realm
